@@ -1,0 +1,116 @@
+[HOW-TO] Amanda
+org "SetQRO01"
+# mailto "alarmas@amco.mx"
+mailto "backup"                 # When you are done with tests remember to update this option
+dumpuser "backup"
+
+inparallel 6
+dumporder "sssSSS"
+taperalgo first
+displayunit "m"
+netusage  80 Mbps               #Mega bytes  / seg        50% de ( 1gbit o 125Mbyte ) = 62.5Mbyte
+
+# almacenamos 15 dias , 1 full cada 5 dias
+dumpcycle 1 Week                #La mayor cantidad de tiempo en la que la DLE recibe un respaldo Nivel 0\. Usualmente una semana.
+runspercycle 5                  #La cantidad de veces, durante dumpcycle para la cual Amanda será ejecutado
+tapecycle 15 tape               #El número de cintas que Amanda debe usar antes de ~@~\reciclar~@~] cintas.
+
+bumpsize 20 Mb
+bumppercent 20
+bumpdays 1
+bumpmult 4
+
+usetimestamps yes
+autoflush yes
+
+etimeout 300
+dtimeout 1800
+ctimeout 30
+runtapes 1
+
+## S3 storage config
+device_property "S3_ACCESS_KEY" "AKIAJPQFCZ3P7TZ3ZK4Q"
+device_property "S3_SECRET_KEY" "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"
+device_property "S3_SSL" "yes"
+device-property "verbose" "yes"
+tpchanger "chg-multi:s3:cbox-backups-frontend/amanda/SetProd01/slot-{01,02,03,04,05,06,07,08,09,10,11,12,13,14,15}"
+changerfile  "s3-statefile"
+tapetype S3
+
+define tapetype S3 {
+    comment "S3 Bucket"
+    length 5240 gigabytes
+}
+
+
+#taper-parallel-write 3
+maxdumps 2                      #numero de dumps maximos de 1 solo host
+
+amrecover_changer "null:"
+
+holdingdisk hd1 {
+   comment "main holding disk"
+   directory "/BACKUP/amanda/holding/SetQRO01"
+   # use -100 Mb
+   use 200Gb
+   chunksize 2Gb
+}
+
+infofile "/etc/amanda/SetProd01/curinfo"
+logdir   "/etc/amanda/SetProd01"
+indexdir "/etc/amanda/SetProd01/index"
+tapelist "/etc/amanda/SetProd01/tapelist"
+
+define tapetype DISK {
+   length 1024 gbytes
+}
+
+define dumptype global {
+    comment "Global definitions"
+    auth "bsdtcp"
+    index yes
+    holdingdisk required
+    compress client best
+    comprate 0.90
+    exclude list "/etc/amanda/exclude.gtar"
+    priority high
+}
+
+define dumptype root-full-tar {
+   global
+   program "GNUTAR"
+   compress client best
+   dumpcycle 0
+}
+
+define dumptype root-tar {
+   global
+   program "GNUTAR"
+   compress client best
+}
+
+define dumptype holding-disk {
+   global
+   comment "The master-host holding disk itself"
+   holdingdisk no # do not use the holding disk
+   priority medium
+}
+
+define interface local {
+   comment "a local disk"
+   use 80 Mbps                                  #Mega bytes  / seg        50% de ( 1gbit o 125Mbyte ) = 62.5Mbyte
+}
+
+define interface eth0 {
+   comment "60% of 1Gbps ethernet"
+   use 80 Mbps                                 #Mega bytes  / seg        50% de ( 1gbit o 125Mbyte ) = 62.5Mbyte
+}
+
+#define a script-tool to send an email
+define script-tool sc-email {
+ comment "script-email"
+ plugin  "script-email"
+ execute_on pre-dle-amcheck, pre-host-amcheck, post-dle-amcheck, post-host-amcheck, pre-dle-estimate, pre-host-estimate, post-dle-estimate, post-host-estimate,  pre-dle-backup, pre-host-backup, post-dle-backup, post-host-backup
+ execute_where server                  # or client
+ property "mailto"
+}

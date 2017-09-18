@@ -1,0 +1,131 @@
+
+[HOW-TO] Comandos Basicos Linux (Archivos y Directorios)
+
+* man "comando", muestra el manual del comando, a veces es complicado de leer, pero muestra todas las opciones dispoibles
+* comando --help, breve descripcion de como usarlo y opciones mas comunes
+
+
+
+
+...and remember young grasshopper, Google is your friend
+
+
+
+
+Manejo de Archivos y directorios
+=======================================================
+
+Conceptos basicos del uso de archivos y directorios
+-------------------------------------------------------
+
+1) TODO es un archivo...
+2) Los sistemas POSIX son Case-Sensitive
+3) Los Archivos y Directorios poseen permisos, estos son Read, Write y eXecution o "RWX", los cuales se aplican a los siguientes objetos User, Group y Others o "UGO"
+4) Los directorios nececistan permisos de ejecucion para poder acceder a ellos.
+5) Los Archivos y Directorios  ocultos llevan un . (punto) delante
+
+Wildcard o comodines
+-------------------------------------------------------
+* - Reemplaza todo
+? - Solo un caracter
+
+Ej: *.txt
+Ej: *
+Ej: archivo1.*
+ej: archivo?.txt
+
+
+Lectura recomendada: https://es.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+
+Conceptos basicos de redireccion
+--------------------------------------------------------
+STDIN = standard input device, normalmente el teclado, pero podria ser un archivo, un dispositivo o un puerto de comunicaciones.
+STDOUT = standard output device, normalmente es el monitor, pero podria ser un archivo, un dispositivo o un puerto de comunicaciones.
+STDIND/OUT podria ser tambien la salida de un comando, segun como se lo utilice.
+
+1) ">" redirije el contenido de un dispositivo de salida a reescribiendo el contenido en uno de entrada.
+2) ">>" redirije el contenido de un dispositivo de salida a uno de entrada, solo que esta vez no agrega al contenido ya existente.
+3) "|" Redirije el flujo de un programa a otro, por ejemplo el resultado de un comando se puede usar como valors de otro 
+
+
+Comandos Linux
+---------------------------------------------------------
+
+1) clear
+	- Se usa para: Limpiar la pantalla
+	- Ej: N/A
+
+2) cd
+	- Cambia de directorios, en unix no hay carpetas, hay directorios ;)
+	- Ej: cd /var/log, cambia al directorio indicado
+	- Ej: cd .. , vuelve atras un nivel en el arbol de directorios
+	- Ej: cd -  , vuelve al directorio donde estabas parado antes, sin importar el nivel del arbol de directroios
+	- Ej: cd ~ , va directo al home del usuario
+	
+3) cat
+	- Se usa para: Mostrar el contendido de un solo por pantalla. taambien sirve para concatenar archivos (de ahi su nombre)
+	- Ej: cat nombredearchvio , muestra el contenido en pantalla
+	- Ej: cat arch1 arch2 > arch3, donde arch3 es la suma del contendido de arch1 y arch2.
+	
+4) echo
+	- Se usa para: Escribir en STDOUT el contenido de una variable, tambien para ingresar un valor en STDIN
+	- Ej: echo $USER
+	- Ej: echo "Pepe" >> lista_de_invitados.txt
+	
+5) ls
+	- Se usa para: Listar los archivos y directorios
+	- Ej: ls -l /var/log, lista el contenido del directorio indicado
+	- Ej: ls -lstra /* , muestra un listado de todo (*) lo que pende del directorio indicado, en forma de listado largo (-l), con el tamaño de cada archivo (-s), ordenando por modificado mas reciente primero (-t),invirtiendo el orden (-r) y mostrando los archivos ocultos (-a)
+	- Ej: ls -ld /boot , Muestra la información del directorio indicado
+	
+6) pwd
+	- Se usa para: conocer el directorio de trabajo actual
+	- Ej: N/A
+	
+7) grep
+	- Se usa para: Encontrar un valor dentro del STDIN, devuelve toda la linea de las coincidencias encontradas
+	- Ej: grep "Pepe" lista_de_invitados.txt
+	- Ej: grep -iv ^pepe , ignora el case sensitive (-i), muestra las lineas que NO contengan (-v), inicien con (^) PEPE PePe pepe PEpe etc.
+	
+8) find
+	- Se usa para: Encontrar archivos o directorios
+	- Ej: find /home/marquillos -name lista_de_invitados.txt, la ubicacion de archivos o directorios dentro el directorio indicado( y sus subdirectorios )
+	- Ej: find /var/log -type f -name apache.log , encuentra todos los archivos llamados apache.log dentro del directorio indicado ( y sus subdirectorios )
+	- Ej: find /etc -type f -mtime -2 ,  busca todos los archvios que fueron modificados en las ultimas 2 horas dentro del directorio indicado ( y sus subdirectorios )
+	- Ej: find /etc -type f -mtime -2 -depth 1 , busca todos los archvios que fueron modificados en las ultimas 2 horas dentro del directorio indicado ( pero NO en sus subdirectorios )
+
+9) cp
+	- Se usa para: Copiar un archivo un archivo
+	- Ej: cp arch1 arch1.bak, realiza una copia de "seguridad" de un archivo dado, muy util antes de editar una configuracion ;)
+	- Ej: cp /home/marquillos/apache.conf /etc/apache2/apache.conf, copia una version personal de la configuracion de apache al directorio donde apache va a buscar su config (si el archivo existe pregtunta sobreescribir). 
+	- Ej: cp -p /home/marquillos/lista_de_invitados /root , copia el archivo manteniendo los permisos del archivo (muy util cuando estamos trabajando como otro usuario y no queremos que se pierdan )
+
+10) mv
+	- Se usa para: Mover un archivo, y para renombrar tambien.. jajaja
+	- Ej: mv apapche.cfg  apache2.conf, renombra el archivo1 como archivo2
+	- Ej: mv /home/marquillos/apache.conf /etc/apache2/apache.conf, mueve una version personal de la configuracion de apache al directorio donde apache va a buscar su config (si el archivo existe pregtunta sobreescribir). 
+	
+11) rm
+	- Se utiliza para: remover archivos o directorios (borrar), en linux consola no existe la papelera de reciclaje, si no backupeaste... fuiste!
+	- Ej: rm lista_de_invitados.txt ,  borra el archivo indicado
+	- Ej: rm -Rf /home/marquillos/* , elimina TODO el contenido del home de forma recursiva -R y sin preguntar (-f)
+	
+12) mkdir
+	- Se usa para: Crear un directorio
+	- Ej: mkdir ~/lista_de_invitados
+	- Ej: mkdir -p /opt/tomcat/config
+	
+13) rmdir	
+	- Se usa para: Eliminar directorios (deben estar vacios)
+	- Ej: N/A
+
+14) ln
+	- Se usa para crear enlaces simbolicos, los famosos links de windows... 
+	- Ej: ln -s lista_de_invitados.txt invitados.txt, el enlace "blando" o soft (-s) invitados apuntara a lista de lista_de_invitados.txt, ocupa algo de espacio en disco y podemos ver a donde apunta con el comando ls -l
+	- Ej: ln -fP lista_de_invitados.txt invitados.txt, el archivo invitados se borrara si existe (-f), el enlace sera "duro" lo que genera una nueva entrada al inodo que ocupa del archivo y no un simple enlace, la diferencia con el enlace blando es que no puede cruzar filesystems, pero no ocupa espacio adicional en el disco. el comando ls no muestra a que archivo apunta, solo podemos identificarlo por su inodo, el cualk se ve con el comando ls -li
+	
+Curiosidad del universo linux....
+	/dev/null es un archivo logico que adentro contiene nada.... su uso es muy variado...
+	- Ej: mv /home/marquillos/lista_de_invitados.txt /dev/null , se borra el archivo
+	- Ej: cat /dev/null > /home/marquillos/lista_de_invitados.txt , vacia el archivo, lo deja en blanco...
+

@@ -1,0 +1,161 @@
+[HOW-TO] Install Sumologic client
+
+wget https://collectors.sumologic.com/rest/download/linux/64 -O /usr/local/src/sumologic-collector.sh; chmod 700 /usr/local/src/sumologic-collector.sh; /usr/local/src/sumologic-collector.sh
+
+accessid=suVPeKfG531Roc
+accesskey=tdSvLsJGuRHRGyl6WoGQoth7heJ3VdrdM1fjirpSHZNSLqsoXCV30KdDnwvXFpie
+
+* Verificar que haya creado la instancia de en la web de sumologic
+
+/etc/init.d/collector stop
+
+* Eliminar instancia en la web de sumologic
+
+mkdir /opt/SumoCollector/installerSources
+vi /opt/SumoCollector/installerSources/selected.json
+{
+"api.version": "v1",
+"installer": {
+"name": "None",
+"description": "Do not install sources",
+"order": 0
+},
+   "sources":[{
+   "name":"nginx.access.log",
+   "category":"oryx-reco.prd.default.nap.cvideo",
+   "pathExpression":"/var/log/nginx/access.log",
+   "sourceType":"LocalFile",
+   "automaticDateParsing":true,
+   "defaultDateFormat": "dd/MMM/yyyy:HH:mm:ss ZZZZ",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "multilineProcessingEnabled":false,
+   "useAutolineMatching":false,
+   "cutoffRelativeTime" : "-1d",
+   "encoding":"UTF-8",
+   "filters":[],
+   "blacklist":[]
+},{
+   "name":"nginx.error.log",
+   "category":"oryx-reco.prd.default.nap.cvideo",
+   "pathExpression":"/var/log/nginx/error.log",
+   "sourceType":"LocalFile",
+   "automaticDateParsing":true,
+   "defaultDateFormat": "yyyy/MM/dd HH:mm:ss",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "multilineProcessingEnabled":false,
+   "useAutolineMatching":false,
+   "cutoffRelativeTime" : "-1d",
+   "encoding":"UTF-8",
+   "filters":[],
+   "blacklist":[]
+},{
+   "name":"apache.access.log",
+   "category":"oryx-reco.prd.default.nap.cvideo",
+   "pathExpression":"/var/log/apache/access_log",
+   "sourceType":"LocalFile",
+   "automaticDateParsing":true,
+   "defaultDateFormat": "dd/MMM/yyyy HH:mm:ss",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "multilineProcessingEnabled":false,
+   "useAutolineMatching":false,
+   "cutoffRelativeTime" : "-1d",
+   "encoding":"UTF-8",
+   "filters":[],
+   "blacklist":[]
+},{
+   "name":"apache.error.log",
+   "category":"oryx-reco.prd.default.nap.cvideo",
+   "pathExpression":"/var/log/apache/error_log",
+   "sourceType":"LocalFile",
+   "automaticDateParsing":true,
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "multilineProcessingEnabled":false,
+   "useAutolineMatching":false,
+   "cutoffRelativeTime" : "-1d",
+   "encoding":"UTF-8",
+   "filters":[],
+   "blacklist":[]
+},{
+   "name":"php.error.log",
+   "category":"oryx-reco.prd.default.nap.cvideo",
+   "pathExpression":"/var/log/php_log/php_error.log",
+   "sourceType":"LocalFile",
+   "automaticDateParsing":true,
+   "defaultDateFormat": "dd-MMM-yyyy HH:mm:ss",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "multilineProcessingEnabled":false,
+   "useAutolineMatching":false,
+   "cutoffRelativeTime" : "-1d",
+   "encoding":"UTF-8",
+   "filters":[],
+   "blacklist":[]
+},{
+   "name":"nginx.slowlog.log",
+   "category":"oryx-reco.prd.default.nap.cvideo",
+   "pathExpression":"/var/log/php_log/php-fpm.slowlog.log",
+   "sourceType":"LocalFile",
+   "automaticDateParsing":true,
+   "defaultDateFormat": "dd-MMM-yyyy HH:mm:ss",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "multilineProcessingEnabled":true,
+   "useAutolineMatching":false,
+   "cutoffRelativeTime" : "-1d",
+   "encoding":"UTF-8",
+   "filters":[],
+   "blacklist":[]
+},{
+   "name" : "os.syslog",
+   "category" : "oryx-reco.prd.default.nap.cvideo",
+   "pathExpression" : "/var/log/syslog",
+   "sourceType" : "LocalFile",
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "forceTimeZone":false,
+   "cutoffRelativeTime" : "-1d"
+},{
+   "name" : "os.messages",
+   "category" : "oryx-reco.prd.default.nap.cvideo",
+   "pathExpression" : "/var/log/messages",
+   "sourceType" : "LocalFile",
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "forceTimeZone":false,
+   "cutoffRelativeTime" : "-1d"
+},{
+   "name" : "os.auth.log",
+   "category" : "oryx-reco.prd.default.nap.cvideo",
+   "pathExpression" : "/var/log/auth.log",
+   "sourceType" : "LocalFile",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "cutoffRelativeTime" : "-1d"
+},{
+   "name" : "os.mail.log",
+   "category" : "oryx-reco.prd.default.nap.cvideo",
+   "pathExpression" : "/var/log/mail.log",
+   "sourceType" : "LocalFile",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "cutoffRelativeTime" : "-1d"
+},{
+   "name" : "os.daemon.log",
+   "category" : "oryx-reco.prd.default.nap.cvideo",
+   "pathExpression" : "/var/log/daemon.log",
+   "sourceType" : "LocalFile",
+   "forceTimeZone":false,
+   "timeZone":"America/Argentina/Buenos_Aires",
+   "cutoffRelativeTime" : "-1d"
+}
+]
+}
+
+echo "syncSources=/opt/SumoCollector/installerSources/selected.json" >> /opt/SumoCollector/config/user.properties
+
+
+/etc/init.d/collector start & tail -f /opt/SumoCollector/logs/collector.log
+
+

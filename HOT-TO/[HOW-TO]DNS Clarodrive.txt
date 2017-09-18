@@ -1,0 +1,6 @@
+ssh jumphost-001.prd.us-east-1.aws.int.clarodrive.com
+sudo -i 
+dig axfr prd.us-east-1.aws.int.clarodrive.com | grep dns
+DNSManage....
+
+git@git.dlatv.net:Csync/MicroFramework.git

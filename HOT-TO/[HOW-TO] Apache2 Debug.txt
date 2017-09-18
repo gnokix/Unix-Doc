@@ -1,0 +1,4 @@
+[HOW-TO]Apache2 Debug
+
+apache2ctl -M #Show enabled Modules
+

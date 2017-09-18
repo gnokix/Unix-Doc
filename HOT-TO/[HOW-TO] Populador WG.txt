@@ -1,0 +1,11 @@
+[How-to] populador WG
+
+1  cd /usr/local/scripts/elasticsearch_refresh_scripts_multigrupo/
+    2  ls -ls
+    3  rm wg_*
+    4  ls /ls
+    5  ls -l
+    6  ./extae_wg.sh 
+    7  ls -l
+    8  ./wg_rangos_10.20.12.115.curl; ./wg_rangos_10.20.12.118.curl;./wg_rangos_10.20.12.121.curl; ./wg_rangos_10.20.12.124.curl
+    9  history

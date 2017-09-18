@@ -1,0 +1,32 @@
+[HOW-TO]Agregar Usuarios en Salt
+
+
+Desde https://git.dlatv.net/DLA/dla-devops/tree/master/saltstack/pillar_roots/users.sls
+
+Agregar la llave con el nombre del usuario configurado en users.sls desde linea de comandos en salt:
+vim /opt/dla-devops/saltstack/file_roots/users/ssh-pubkeys/user.pub
+Actualizar el repo en el server de salt:
+acorales@salt-master:~$ ssh-agent bash
+acorales@salt-master:~$ ssh-add ~/.ssh/id_rsa
+Identity added: /home/acorales/.ssh/id_rsa (/home/acorales/.ssh/id_rsa)
+acorales@salt-master:~$ ssh-add -l
+2048 33:bb:fa:6c:e5:c6:5e:2c:01:d8:88:d2:a3:f9:e7:50 /home/acorales/.ssh/id_rsa (RSA)
+acorales@salt-master:~$ sudo -sE
+root@salt-master:~# cd /opt/dla-devops
+root@salt-master:/opt/dla-devops# git pull
+remote: Counting objects: 26, done.
+remote: Compressing objects: 100% (26/26), done.
+remote: Total 26 (delta 22), reused 0 (delta 0)
+Unpacking objects: 100% (26/26), done.
+From git.dlatv.net:DLA/dla-devops
+6c94dd8..b055331 master -> origin/master
+97274ca..2e64de7 docker-poc -> origin/docker-poc
+Updating 6c94dd8..b055331
+Fast-forward
+saltstack/pillar_roots/users.sls | 8 +++++---
+1 file changed, 5 insertions(+), 3 deletions(-)
+Chequeamos que este todo acutalizado
+root@salt-master:/opt/dla-devops# git pull
+Already up-to-date. 
+root@salt-master:/opt/dla-devops# salt -t 300 -v salt-master.dlatv.net state.sls users,ssh test=True 
+root@salt-master:/opt/dla-devops# salt -t 300 -v salt-master.dlatv.net state.sls users,ssh 

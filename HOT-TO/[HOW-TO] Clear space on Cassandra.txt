@@ -1,0 +1,32 @@
+[HOW-TO] Clear space on Cassandra
+
+
+Method 1 - Borrara data y resincronizar
+============================
+
+Parar el Servicio de Cassandra
+	/etc/init.d/dse stop 
+ 
+Borrar los datos del los directorios de Cassandra
+	rm /cassandra/data/* -r
+	rm /cassandra/commitlog/* -r
+ 
+iniciar de Nuevo el Cassandra
+	/etc/init.d/dse start
+ 
+Sincronizar los datos desde otro DC
+	nodetool rebuild -- DC-TV-USEAST01
+
+
+Method 2 - Eliminar Snapshots viejas (Recomendado!!)
+==========================
+Ubicar datos que mas consumen en cassandra
+	du -ks /cassandra/data/cacheqro/* | sort -nr
+
+Cambiar al Dir objetivo, segun obtenidop del paso anterior, agregando el dir snapshots
+	cd /cassandra/data/cacheqro/html-574c9d005d7e11e688ea996ed610badc/snapshots
+
+Eliminamos las snapshots mas antiguas
+	for i in `find ./ -type d -mtime +30`; do nodetool -h 10.20.5.180 clearsnapshot -t $i cacheqro ;done
+
+

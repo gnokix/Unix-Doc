@@ -1,0 +1,10 @@
+[HOW-TO] Usefull IP commands
+
+ip addr
+ip link 
+ip link set eth1 up
+ip route add default via 192.168.99.254
+ip route delete default
+ip addr add 10.1.1.2/16 dev eth1
+ip addr del 1.1.1.2/24 dev eth2
+

@@ -1,0 +1,17 @@
+Cassandra - Espacio en disco
+============================
+
+Parar el Servicio de Cassandra
+/etc/init.d/dse stop 
+ 
+Borrar los datos del los directorios de Cassandra
+ 
+rm /cassandra/data/* -r
+rm /cassandra/commitlog/* -r
+ 
+iniciar de Nuevo el Cassandra
+/etc/init.d/dse start
+ 
+Sincronizar los datos desde otro DC
+ 
+nodetool rebuild -- DC-TV-USEAST01

@@ -1,0 +1,17 @@
+dig clarodrive.com SOA
+dig clarodrive.com NS
+
+cd /usr/local/bind/9.9.5/zones/masters/
+ls -l
+cp db.clarodrive.com backup/db.clarodrive.com.20170616
+vi db.clarodrive.com
+modificar serial con el siguiente formato = aaaammddvv (donde vv es el nro de version que va del 00 al 99)
+comentar con ;
+cp db.clarobox.com backup/db.clarobox.com.20170616
+vi db.clarobox.com
+/usr/local/bind/9.9.5/sbin/named-checkzone clarobox.com db.clarobox.com
+/usr/local/bind/9.9.5/sbin/named-checkzone clarodrive.com db.clarodrive.com
+/usr/local/bind/9.9.5/sbin/rndc reload clarodrive.com IN external
+/usr/local/bind/9.9.5/sbin/rndc reload clarodrive.com IN internal
+/usr/local/bind/9.9.5/sbin/rndc reload clarobox.com IN external
+/usr/local/bind/9.9.5/sbin/rndc reload clarobox.com IN internal

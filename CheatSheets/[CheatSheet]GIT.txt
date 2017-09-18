@@ -1,0 +1,71 @@
+[HOW-TO] Git
+
+
+Arrancando desde  cero un proyecto nuevo
+=======================================================
+1) Creamos un proyecto local
+2) modificamos a gusto
+3) Agregamos los cambios a la lista de cambios
+4) Commiteamos
+5) Subimos al repo los cambios
+
+
+
+Continuando con un proyecto ya existente en el repo
+======================================================
+1) Creamos una replica en nuestro equipo del repo remoto
+2) creamos una nueva rama
+3) Switcheamos a la nueva rama
+3) modificamos a gusto
+4) Switcheamos a master
+5) Mergeamos
+6) Commiteamos
+7) Pusheamos
+
+
+mkdir dla-devops
+cd dla-devops
+  784  git clone git@git.dlatv.net:DLA/dla-devops.git
+  797  git status
+  798  git pull
+  799  git checkout -b PESP-273
+  800  git status
+  827  git status
+  828  git -A
+  829  git add -A 
+  830  git status
+  831  git commit
+  832  git config --global user.mail "cdiaz_ext@amco.mx" 
+  833  git config --global user.name "Christian Diaz" 
+  834  git commit
+  835  vi ~/.gitconfig 
+  837  git commit
+  858  git pull
+  859  history | grep  git
+  862  git clone git@git.dlatv.net:DLA/dla-devops.git
+  877  git commit
+  879  rm ~/.ssh/id_rsa_git*
+  881  git config user.email "cdiaz_ext@amco.mx"
+  882  git commit
+  883  git status
+  884  git checkuout master
+  885  git checkout master
+  886  git pull
+  887  git merge
+  888  git merge PESP-273
+  889  git push
+  890  git checkout -b PESP-273
+  891  git status
+  892  git checkout PESP-273
+  893  git status
+  895  git status
+  896  git add -A
+  897  git commit
+  898  git status
+  899  git checkout master
+  901  git status
+  902  git merge PESP-273
+  903  git push
+
+  
+  ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAvDicxV2vHWYHf3+o2C8KPqryBaPNZYu6rkEjI/7Ntq7i+cQy2wJT/wUha/WPpHfD44i1pplzSAzkouB+5LPWDrwaHFfmaWd8fP4FhGONxMHbaRP+twlF3JslhECInj2e/GUDVbTC09N3UhrKuul0rz17JaIaVW2vQtvjDaOAWu9pvCBOP3nhdkp3/E8l45q6V3TrznEBtzSSoMvfzmk9H46wppX+k+8k/Qt9w/xcUgiKpN49UtT8b8aVpba29xLAJLKHx88Zt2hsJwX85HOTCeUT+wQu6HM82Yd5yEXq9hElrGO5o0sM9+pMAE/N2Hl+IvRkEITXEQxH/KTg5Uwr0Q== fgermano@stagelx

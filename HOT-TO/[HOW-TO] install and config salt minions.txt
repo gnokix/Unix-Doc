@@ -1,0 +1,80 @@
+
+https://repo.saltstack.com/2016.11.html
+
+
+sudo apt-get -qy update &&\
+sudo apt-get -qy install salt-minion &&\
+echo 'master: salt-master.dlatv.net' | sudo tee /etc/salt/minion.d/99-master-address.conf &&\
+echo 'roles:
+  - common
+  - cl_drive
+  - syncserver
+  - i0000
+datacenter: qro
+salt: minion' | sudo tee /etc/salt/grains &&\
+sudo service salt-minion restart &&\
+sudo salt-call state.apply
+
+
+
+
+i-0928aea69ee763a0d
+	
+licenserPR-live-01
+	
+us-east-1b
+	
+InService
+	
+Remove from Load Balancer
+i-098e6223e946d60f1
+	
+licenserPR-live-02
+	
+us-east-1b
+	
+InService
+	
+Remove from Load Balancer
+i-0e232c8669cf6ff87
+	
+licenserPR-live-03
+	
+us-east-1b
+	
+InService
+	
+Remove from Load Balancer
+i-0d9767ff52671647c
+	
+licenserPR-live-04
+	
+us-east-1b
+	
+InService
+	
+Remove from Load Balancer
+i-01163c95414b6579c
+	
+licenserPR-live-05
+	
+us-east-1b
+	
+InService
+	
+Remove from Load Balancer
+
+
+cp /etc/network/interfaces /etc/network/interfaces.old;resolvconf --create-runtime-directories;sed -i 's/domain-name, domain-name-servers, domain-search, host-name,/#domain-name, domain-name-servers, domain-search, host-name,/' /etc/dhcp/dhclient.conf;egrep -v "up route add default gw 172.25.4.|dns-nameservers" /etc/network/interfaces > /tmp/interfaces;echo -e "\n\nauto eth3\niface eth3 inet static\n\taddress 10.20.5.23\n\tnetmask 255.255.252.0\n\tup route add default gw 10.20.5.3\n\tdns-nameservers 10.20.5.35\n\tdns-nameservers 10.20.5.36\n\n" >> /tmp/interfaces;cp /tmp/interfaces /etc/network/interfaces;reboot
+cp /etc/network/interfaces /etc/network/interfaces.old;resolvconf --create-runtime-directories;sed -i 's/domain-name, domain-name-servers, domain-search, host-name,/#domain-name, domain-name-servers, domain-search, host-name,/' /etc/dhcp/dhclient.conf;egrep -v "up route add default gw 172.25.4.|dns-nameservers" /etc/network/interfaces > /tmp/interfaces;echo -e "\n\nauto eth3\niface eth3 inet static\n\taddress 10.20.5.23\n\tnetmask 255.255.252.0\n\tup route add default gw 10.20.5.3\n\tdns-nameservers 10.20.5.35\n\tdns-nameservers 10.20.5.36\n\n" >> /tmp/interfaces;cp /tmp/interfaces /etc/network/interfaces;reboot
+cp /etc/network/interfaces /etc/network/interfaces.old;resolvconf --create-runtime-directories;sed -i 's/domain-name, domain-name-servers, domain-search, host-name,/#domain-name, domain-name-servers, domain-search, host-name,/' /etc/dhcp/dhclient.conf;egrep -v "up route add default gw 172.26.15.|dns-nameservers" /etc/network/interfaces > /tmp/interfaces;echo -e "\n\nauto eth3\niface eth3 inet static\n\taddress 10.20.5.126\n\tnetmask 255.255.252.0\n\tup route add default gw 10.20.5.3\n\tdns-nameservers 10.20.5.35\n\tdns-nameservers 10.20.5.36\n\n" >> /tmp/interfaces;cp /tmp/interfaces /etc/network/interfaces;reboot
+
+cp /etc/network/interfaces /etc/network/interfaces.old;
+resolvconf --create-runtime-directories;
+sed -i 's/domain-name, domain-name-servers, domain-search, host-name,/#domain-name, domain-name-servers, domain-search, host-name,/' /etc/dhcp/dhclient.conf;
+egrep -v "up route add default gw 172.25.4.|dns-nameservers" /etc/network/interfaces > /tmp/interfaces;
+echo -e "\n\nauto eth3\niface eth3 inet static\n\taddress 10.20.8.99\n\tnetmask 255.255.252.0\n\tup route add default gw 10.20.8.3\n\tdns-nameservers 10.20.5.35\n\tdns-nameservers 10.20.5.36\n\n" >> /tmp/interfaces;
+cp /tmp/interfaces /etc/network/interfaces;
+reboot
+
+
