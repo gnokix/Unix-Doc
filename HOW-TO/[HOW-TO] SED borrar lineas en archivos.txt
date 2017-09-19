@@ -1,4 +1,5 @@
 Sed Command to Delete Lines in File - 15 Examples
+==================================================
 
 Sed Command to Delete Lines: Sed command can be used to delete or remove specific lines which matches a given pattern or in a particular position in a file. Here we will see how to delete lines using sed command with various examples.
 
